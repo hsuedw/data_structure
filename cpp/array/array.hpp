@@ -36,7 +36,7 @@ public:
     public:
         bool operator!=(const Iterator& other); 
         T& operator*();
-        Iterator operator++();
+        Iterator& operator++();
         Iterator operator++(int);
     private:
         Iterator(T* ptr);
@@ -50,7 +50,7 @@ public:
     public:
         bool operator!=(const ConstIterator& other); 
         const T& operator*() const;
-        ConstIterator operator++();
+        ConstIterator& operator++();
         ConstIterator operator++(int);
     private:
         ConstIterator(const T* ptr);
@@ -58,6 +58,8 @@ public:
     };
     ConstIterator CBegin();
     ConstIterator CEnd();
+    ConstIterator Begin() const;
+    ConstIterator End() const;
 
 private:
     T *data_;
@@ -179,111 +181,12 @@ void Array<T, N>::Swap(Array<T, N> &other)
 }
 
 /*--------- iterator -----------------------*/
-
-template <typename T, size_t N>
-Array<T, N>::Iterator::Iterator(T* ptr) : ptr_(ptr)
-{
-}
-
-template <typename T, size_t N>
-bool Array<T, N>::Iterator::operator!=(const Array<T, N>::Iterator& other)
-{
-    return ptr_ != other.ptr_;
-}
-
-template <typename T, size_t N>
-T& Array<T, N>::Iterator::operator*()
-{
-    return *ptr_;
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::Iterator Array<T, N>::Iterator::operator++()
-{
-    ++ptr_;
-    return Iterator(ptr_);
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::Iterator Array<T, N>::Iterator::operator++(int)
-{
-    Iterator ret(ptr_);
-    ++ptr_;
-    return ret;
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::Iterator Array<T, N>::Begin()
-{
-    return Array<T, N>::Iterator(data_);
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::Iterator Array<T, N>::End()
-{
-    return Array<T, N>::Iterator(data_ + Size());
-}
+#include "array_iterator.hpp"
 
 /*--------- const iterator -----------------*/
-
-template <typename T, size_t N>
-Array<T, N>::ConstIterator::ConstIterator(const T* ptr) : ptr_(ptr)
-{
-}
-
-template <typename T, size_t N>
-bool Array<T, N>::ConstIterator::operator!=(const Array<T, N>::ConstIterator& other)
-{
-    return ptr_ != other.ptr_;
-}
-
-template <typename T, size_t N>
-const T& Array<T, N>::ConstIterator::operator*() const
-{
-    return *ptr_;
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::ConstIterator Array<T, N>::ConstIterator::operator++()
-{
-    ++ptr_;
-    return ConstIterator(ptr_);
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::ConstIterator Array<T, N>::ConstIterator::operator++(int)
-{
-    ConstIterator ret(ptr_);
-    ++ptr_;
-    return ret;
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::ConstIterator Array<T, N>::CBegin()
-{
-    return Array<T, N>::ConstIterator(data_);
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::ConstIterator Array<T, N>::CEnd()
-{
-    return Array<T, N>::ConstIterator(data_ + Size());
-}
+#include "array_const_iterator.hpp"
 
 /*------------------------------------------*/
+#include "array_utility.hpp"
 
-template <typename T, size_t N>
-std::ostream& operator<<(std::ostream& os, const Array<T, N> &a) {
-    const size_t sz = a.Size();
-    os << "[";
-    for (size_t i = 0; i < sz; ++i) {
-        os << a[i];
-        if (i < sz - 1) {
-            os << ", ";
-        }
-    }
-    os << "]";
-    return os;
-}
-
-#endif
+#endif // _ARRAY_HPP_

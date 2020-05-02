@@ -15,10 +15,7 @@ int main(int argc, char **argv)
     std::cout << std::endl << "-------------" << std::endl;
 
     const Array<double, 5> b = {10.1, 20.1, 30.1, 40.1, 50.1};
-    for (size_t i = 0; i < b.Size(); ++i) {
-        std::cout << b[i] << " ";
-    }
-    std::cout << "b: " << b << std::endl;
+    std::cout << "b (const Array): " << b << std::endl;
     std::cout << b.Front() << ", " << b.Back(); 
     std::cout << std::endl << "-------------" << std::endl;
 
@@ -54,7 +51,7 @@ int main(int argc, char **argv)
 
     Array<double, 5>::Iterator it = d.Begin();
     *it = 123.4;
-    for (; it != d.End(); it++) {
+    for (; it != d.End(); ++it) {
         std::cout << *it << " ";
     }
     std::cout << std::endl << "-------------------" << std::endl;
@@ -66,6 +63,17 @@ int main(int argc, char **argv)
     }
     std::cout << std::endl << "-------------------" << std::endl;
 
+    std::cout << "a: ";
+    for (auto v : a) {
+        std::cout << v << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "b (const Array): ";
+    for (auto v : b) {
+        std::cout << v << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
 
     return 0;
 }
