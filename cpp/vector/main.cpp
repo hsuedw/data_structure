@@ -53,6 +53,28 @@ int main(int argc, char **argv)
     }
     std::cout << std::endl << "-------------------" << std::endl;
 
+    Vector<int> d;
+    if (d.Empty()) {
+        std::cout << "d is empty." << std::endl;
+    } else {
+        std::cout << "d is not empty." << std::endl;
+    }
+    if (a.Empty()) {
+        std::cout << "a is empty." << std::endl;
+    } else {
+        std::cout << "a is not empty." << std::endl;
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "b capacity is " << b.Capacity() << std::endl;
+    b.Reserve(7);
+    std::cout << "b capacity is " << b.Capacity() << std::endl;
+    b.Reserve(100);
+    std::cout << "b capacity is " << b.Capacity() << std::endl;
+    for (size_t i = 0; i < b.Size(); ++i) {
+        std::cout << i << ", " << b[i] << std::endl;
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
 
     return 0;
 }

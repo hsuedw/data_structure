@@ -20,6 +20,9 @@ public:
 
     size_t Size() const;
     void Resize(size_t n);
+    size_t Capacity() const;
+    bool Empty() const;
+    void Reserve(size_t n);
 
     T& operator[](size_t n);
     const T& operator[](size_t n) const;
@@ -99,12 +102,12 @@ template <typename T>
 void Vector<T>::Resize(size_t n)
 {
     if (n > capacity_) {
-        capacity_ *= 2;
+        capacity_ = n * 2;
         T* tempData = new T[capacity_];
         for (int i = 0; i <= size_; ++i) {
             tempData[i] = data_[i];
         }
-        delete data_;
+        delete[] data_;
         data_ = tempData;
     }
 
@@ -115,6 +118,32 @@ void Vector<T>::Resize(size_t n)
     }
 
     size_ = n;
+}
+
+template <typename T>
+size_t Vector<T>::Capacity() const
+{
+    return capacity_;
+}
+
+template <typename T>
+bool Vector<T>::Empty() const
+{
+    return size_ == 0;
+}
+
+template <typename T>
+void Vector<T>::Reserve(size_t n)
+{
+    if (n > capacity_) {
+        capacity_ = n;
+        T* tempData = new T[capacity_];
+        for (int i = 0; i < size_; ++i) {
+            tempData[i] = data_[i];
+        }
+        delete[] data_;
+        data_ = tempData;
+    }
 }
 
 template <typename T>
