@@ -15,8 +15,9 @@ public:
     Vector(size_t n);
     Vector(const Vector<T> &other);
     Vector(const std::initializer_list<T> &other);
+    Vector<T>& operator=(const Vector<T>& other);
+    Vector<T>& operator=(Vector<T>&& other);
     ~Vector();
-
 
     size_t Size() const;
     void Resize(size_t n);
@@ -26,6 +27,10 @@ public:
 
     T& operator[](size_t n);
     const T& operator[](size_t n) const;
+    T& Front();
+    const T& Front() const;
+    T& Back();
+    const T& Back() const;
 
     void PushBack(const T &val);
     void PushBack(T &&val);
@@ -82,6 +87,43 @@ Vector<T>::Vector(const std::initializer_list<T>& other)
         data_[i] = v;
         ++i;
     }
+}
+
+template <typename T>
+Vector<T>& Vector<T>::operator=(const Vector<T>& other)
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    if (size_ < other.Size()) {
+        size_ = other.Size();
+        if (size_ < capacity_) {
+            capacity_ = size_ * 2;
+            delete[] data_;
+            data_ = new T[capacity_];
+        }
+    }
+    for (size_t i = 0; i < other.Size(); ++i) {
+        data_[i] = other[i];
+    }
+}
+
+template <typename T>
+Vector<T>& Vector<T>::operator=(Vector<T>&& other)
+{
+    if (nullptr != data_) {
+        delete[] data_;
+    }
+    data_ = other.data_;
+    size_ = other.size_;
+    capacity_ = other.capacity_;
+
+    other.size_ = 0;
+    other.capacity_ = DEFAULT_VECTOR_CAPACITY;
+    other.data_ = new T[capacity_];
+
+    return *this;
 }
 
 template <typename T>
@@ -156,6 +198,30 @@ template <typename T>
 const T& Vector<T>::operator[](size_t n) const
 {
     return data_[n];
+}
+
+template <typename T>
+T& Vector<T>::Front()
+{
+    return data_[0];
+}
+
+template <typename T>
+const T& Vector<T>::Front() const
+{
+    return data_[0];
+}
+
+template <typename T>
+T& Vector<T>::Back()
+{
+    return data_[size_ - 1];
+}
+
+template <typename T>
+const T& Vector<T>::Back() const
+{
+    return data_[size_ - 1];
 }
 
 template <typename T>

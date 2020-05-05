@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     for (size_t i = 0; i < c.Size(); ++i) {
         std::cout << i << ", " << c[i] << std::endl;
     }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     Vector<int> d;
     if (d.Empty()) {
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     } else {
         std::cout << "a is not empty." << std::endl;
     }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     std::cout << "b capacity is " << b.Capacity() << std::endl;
     b.Reserve(7);
@@ -73,6 +73,33 @@ int main(int argc, char **argv)
     std::cout << "b capacity is " << b.Capacity() << std::endl;
     for (size_t i = 0; i < b.Size(); ++i) {
         std::cout << i << ", " << b[i] << std::endl;
+    }
+    std::cout << "-------------------" << std::endl;
+
+    const Vector<double> e = {1.1, 2.2, 3.3, 4.4, 5.5};
+    std::cout << "a front: " << a.Front() << std::endl;
+    std::cout << "e front: " << e.Front() << std::endl;
+    std::cout << "a back: " << a.Back() << std::endl;
+    std::cout << "e back: " << e.Back() << std::endl;
+    std::cout << "-------------------" << std::endl;
+
+    a = e;
+    std::cout << "a: ";
+    for (size_t i = 0; i < a.Size(); ++i) {
+        std::cout << a[i] << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    Vector<double> f = {11.1, 22.2, 33.3, 44.4, 55.5};
+    a = std::move(f);    
+    std::cout << "a: ";
+    for (size_t i = 0; i < a.Size(); ++i) {
+        std::cout << a[i] << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "f: ";
+    for (size_t i = 0; i < f.Size(); ++i) {
+        std::cout << f[i] << " ";
     }
     std::cout << std::endl << "-------------------" << std::endl;
 
