@@ -17,40 +17,30 @@ int main(int argc, char **argv)
     a.PushBack(10.10);
     a.PushBack(11.11);
     std::cout << a.Size() << std::endl;
-    for (size_t i = 0; i < a.Size(); ++i) {
-        std::cout << i << ", " << a[i] << std::endl;
-    }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "a: " << a << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     a.Resize(0);
     std::cout << a.Size() << std::endl;
-    for (size_t i = 0; i < a.Size(); ++i) {
-        std::cout << i << ", " << a[i] << std::endl;
-    }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "a: " << a << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     double x = 123.456;
     double y = 223.456;
     a.PushBack(x);
     a.PushBack(y);
     std::cout << a.Size() << std::endl;
-    for (size_t i = 0; i < a.Size(); ++i) {
-        std::cout << i << ", " << a[i] << std::endl;
-    }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "a: " << a << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     Vector<int> b = {1, 2, 3, 4, 5};
     std::cout << b.Size() << std::endl;
-    for (size_t i = 0; i < b.Size(); ++i) {
-        std::cout << i << ", " << b[i] << std::endl;
-    }
+    std::cout << "b: " << b << std::endl;
     std::cout << std::endl << "-------------------" << std::endl;
 
     Vector<int> c = b;
-     std::cout << c.Size() << std::endl;
-    for (size_t i = 0; i < c.Size(); ++i) {
-        std::cout << i << ", " << c[i] << std::endl;
-    }
+    std::cout << c.Size() << std::endl;
+    std::cout << "c: " << c << std::endl;
     std::cout << "-------------------" << std::endl;
 
     Vector<int> d;
@@ -71,9 +61,7 @@ int main(int argc, char **argv)
     std::cout << "b capacity is " << b.Capacity() << std::endl;
     b.Reserve(100);
     std::cout << "b capacity is " << b.Capacity() << std::endl;
-    for (size_t i = 0; i < b.Size(); ++i) {
-        std::cout << i << ", " << b[i] << std::endl;
-    }
+    std::cout << "b: " << b << std::endl;
     std::cout << "-------------------" << std::endl;
 
     const Vector<double> e = {1.1, 2.2, 3.3, 4.4, 5.5};
@@ -84,24 +72,44 @@ int main(int argc, char **argv)
     std::cout << "-------------------" << std::endl;
 
     a = e;
-    std::cout << "a: ";
-    for (size_t i = 0; i < a.Size(); ++i) {
-        std::cout << a[i] << " ";
-    }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "a: " << a << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     Vector<double> f = {11.1, 22.2, 33.3, 44.4, 55.5};
     a = std::move(f);    
-    std::cout << "a: ";
-    for (size_t i = 0; i < a.Size(); ++i) {
-        std::cout << a[i] << " ";
-    }
-    std::cout << std::endl << "-------------------" << std::endl;
-    std::cout << "f: ";
-    for (size_t i = 0; i < f.Size(); ++i) {
-        std::cout << f[i] << " ";
-    }
-    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "a: " << a << std::endl;
+    std::cout << "f: " << f << std::endl;
+    std::cout << "-------------------" << std::endl;
+
+    Vector<double> g;
+    g = {1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1, 9.1};
+    std::cout << "g: " << g << std::endl;
+    std::cout << "-------------------" << std::endl;
+    g.PopBack();
+    std::cout << "g: " << g << std::endl;
+    g.PopBack();
+    std::cout << "g: " << g << std::endl;
+    g.PopBack();
+    std::cout << "g: " << g << std::endl;
+    std::cout << "-------------------" << std::endl;
+
+    std::cout << "f: " << f << std::endl;
+    f.PopBack();
+    std::cout << "f: " << f << std::endl;
+    f.PopBack();
+    std::cout << "f: " << f << std::endl;
+    std::cout << "-------------------" << std::endl;
+
+    std::cout << "a: " << a << std::endl;
+    std::cout << "g: " << g << std::endl;
+    a.Swap(g);
+    std::cout << "a: " << a << std::endl;
+    std::cout << "g: " << g << std::endl;
+    std::cout << "-------------------" << std::endl;
+   
+    g.Clear(); 
+    std::cout << "g: " << g << std::endl;
+    std::cout << "-------------------" << std::endl;
 
     return 0;
 }

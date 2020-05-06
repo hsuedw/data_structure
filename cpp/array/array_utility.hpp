@@ -2,6 +2,8 @@
 #ifndef _ARRAY_UTILITY_HPP_
 #define _ARRAY_UTILITY_HPP_
 
+#include <iostream>
+
 template <typename T, size_t N>
 std::ostream& operator<<(std::ostream& os, const Array<T, N> &a)
 {

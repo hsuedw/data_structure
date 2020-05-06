@@ -17,6 +17,7 @@ public:
     Vector(const std::initializer_list<T> &other);
     Vector<T>& operator=(const Vector<T>& other);
     Vector<T>& operator=(Vector<T>&& other);
+    Vector<T>& operator=(std::initializer_list<T> &other);
     ~Vector();
 
     size_t Size() const;
@@ -34,6 +35,9 @@ public:
 
     void PushBack(const T &val);
     void PushBack(T &&val);
+    void PopBack();
+    void Swap(Vector<T> &other);
+    void Clear();
 
 private:
     T* data_;
@@ -122,6 +126,23 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& other)
     other.size_ = 0;
     other.capacity_ = DEFAULT_VECTOR_CAPACITY;
     other.data_ = new T[capacity_];
+
+    return *this;
+}
+
+template <typename T>
+Vector<T>& Vector<T>::operator=(std::initializer_list<T> &other)
+{
+    size_ = other.size;
+    if (size_ > capacity_) {
+        delete[] data_;
+        capacity_ = size_ * 2;
+        data_ = new T[capacity_];
+    }
+
+    for (int i = 0; i < size_; ++i) {
+        data_[i] = other[i];
+    }
 
     return *this;
 }
@@ -243,5 +264,30 @@ void Vector<T>::PushBack(T &&val)
     data_[size_] = std::move(val);
     ++size_;
 }
+
+template <typename T>
+void Vector<T>::PopBack()
+{
+    if (size_ > 0) {
+        --size_;
+    }
+}
+
+template <typename T>
+void Vector<T>::Swap(Vector<T> &other)
+{
+    std::swap(data_, other.data_);
+    std::swap(size_, other.size_);
+    std::swap(capacity_, other.capacity_);
+}
+
+template <typename T>
+void Vector<T>::Clear()
+{
+    size_ = 0;
+}
+
+/*------------------------------------------*/
+#include "vector_utility.hpp"
 
 #endif // _VECTOR_HPP_
