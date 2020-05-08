@@ -111,5 +111,11 @@ int main(int argc, char **argv)
     std::cout << "g: " << g << std::endl;
     std::cout << "-------------------" << std::endl;
 
+    Vector<double>::Iterator it = a.Begin();
+    for (; it != a.End(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
     return 0;
 }

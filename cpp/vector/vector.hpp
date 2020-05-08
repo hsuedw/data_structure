@@ -39,6 +39,21 @@ public:
     void Swap(Vector<T> &other);
     void Clear();
 
+    class Iterator
+    {
+        friend class Vector;
+    public:
+        bool operator!=(const Iterator& other);
+        T& operator*();
+        Iterator& operator++();
+        Iterator operator++(int);
+    private:
+        Iterator(T* ptr);
+        T* ptr_;
+    };
+    Iterator Begin();
+    Iterator End();
+
 private:
     T* data_;
     size_t size_;
@@ -286,6 +301,9 @@ void Vector<T>::Clear()
 {
     size_ = 0;
 }
+
+/*------------------------------------------*/
+#include "vector_iterator.hpp"
 
 /*------------------------------------------*/
 #include "vector_utility.hpp"
