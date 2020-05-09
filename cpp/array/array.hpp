@@ -56,8 +56,8 @@ public:
         ConstIterator(const T* ptr);
         const T* ptr_;
     };
-    ConstIterator CBegin();
-    ConstIterator CEnd();
+    ConstIterator CBegin() const;
+    ConstIterator CEnd() const;
     ConstIterator Begin() const;
     ConstIterator End() const;
 

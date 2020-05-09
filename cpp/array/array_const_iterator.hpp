@@ -35,13 +35,13 @@ typename Array<T, N>::ConstIterator Array<T, N>::ConstIterator::operator++(int)
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::ConstIterator Array<T, N>::CBegin()
+typename Array<T, N>::ConstIterator Array<T, N>::CBegin() const
 {
     return Array<T, N>::ConstIterator(data_);
 }
 
 template <typename T, size_t N>
-typename Array<T, N>::ConstIterator Array<T, N>::CEnd()
+typename Array<T, N>::ConstIterator Array<T, N>::CEnd() const
 {
     return Array<T, N>::ConstIterator(data_ + Size());
 }

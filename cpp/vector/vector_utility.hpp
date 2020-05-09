@@ -19,4 +19,28 @@ std::ostream& operator<<(std::ostream& os, const Vector<T>& vec)
     return os;
 }
 
+template <typename T>
+typename Vector<T>::Iterator begin(Vector<T>& container)
+{
+    return container.Begin();
+}
+
+template <typename T>
+typename Vector<T>::Iterator end(Vector<T>& container)
+{
+    return container.End();
+}
+
+template <typename T>
+typename Vector<T>::ConstIterator begin(const Vector<T>& container)
+{
+    return container.Begin();
+}
+
+template <typename T>
+typename Vector<T>::ConstIterator end(const Vector<T>& container)
+{
+    return container.End();
+}
+
 #endif // _VECTOR_UTILITY_HPP_

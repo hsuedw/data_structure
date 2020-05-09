@@ -111,9 +111,39 @@ int main(int argc, char **argv)
     std::cout << "g: " << g << std::endl;
     std::cout << "-------------------" << std::endl;
 
-    Vector<double>::Iterator it = a.Begin();
-    for (; it != a.End(); ++it) {
+    std::cout << "a (iterator): ";
+    for (Vector<double>::Iterator it = a.Begin(); it != a.End(); ++it) {
         std::cout << *it << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "a (const iterator): ";
+    for (Vector<double>::ConstIterator it = a.CBegin(); it != a.CEnd(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "e (const iterator for const vector): ";
+    for (Vector<double>::ConstIterator it = e.CBegin(); it != e.CEnd(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "e (const iterator for const vector): ";
+    for (Vector<double>::ConstIterator it = e.Begin(); it != e.End(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "a: ";
+    for (auto &v: a) {
+        std::cout << v << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
+    std::cout << "e: ";
+    for (auto &v: e) {
+        std::cout << v << " ";
     }
     std::cout << std::endl << "-------------------" << std::endl;
 

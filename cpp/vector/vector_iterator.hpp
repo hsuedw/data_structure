@@ -42,7 +42,7 @@ typename Vector<T>::Iterator Vector<T>::Begin()
 template <typename T>
 typename Vector<T>::Iterator Vector<T>::End()
 {
-    return Vector<T>::Iterator(data_ + size_);
+    return Vector<T>::Iterator(data_ + Size());
 }
 
 

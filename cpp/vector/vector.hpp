@@ -54,6 +54,23 @@ public:
     Iterator Begin();
     Iterator End();
 
+    class ConstIterator
+    {
+        friend class Vector;
+    public:
+        bool operator!=(const ConstIterator& other);
+        const T& operator*() const;
+        ConstIterator& operator++();
+        ConstIterator operator++(int);
+    private:
+        ConstIterator(const T* ptr);
+        const T* ptr_;
+    };
+    ConstIterator CBegin() const;
+    ConstIterator CEnd() const;
+    ConstIterator Begin() const;
+    ConstIterator End() const;
+
 private:
     T* data_;
     size_t size_;
@@ -304,6 +321,9 @@ void Vector<T>::Clear()
 
 /*------------------------------------------*/
 #include "vector_iterator.hpp"
+
+/*------------------------------------------*/
+#include "vector_const_iterator.hpp"
 
 /*------------------------------------------*/
 #include "vector_utility.hpp"
