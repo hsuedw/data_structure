@@ -25,6 +25,23 @@ public:
     };
     Iterator Begin();
     Iterator End();
+
+    class ConstIterator
+    {
+        friend ForwardList;
+    public:
+        bool operator!=(const ConstIterator& it);
+        ConstIterator& operator++();
+        const T& operator*();
+    private:
+        ConstIterator(typename ForwardList::ListNode_* ptr);
+        const typename ForwardList::ListNode_* ptr_;
+    };
+    ConstIterator CBegin();
+    ConstIterator CEnd();
+    ConstIterator Begin() const;
+    ConstIterator End() const;
+
 private:
     struct ListNode_
     {
@@ -73,6 +90,9 @@ void ForwardList<T>::PopFront()
 
 /*------------------------------------------*/
 #include "forward_list_iterator.hpp"
+
+/*------------------------------------------*/
+#include "forward_list_const_iterator.hpp"
 
 /*------------------------------------------*/
 #include "forward_list_utility.hpp"
