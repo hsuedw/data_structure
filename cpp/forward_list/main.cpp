@@ -22,6 +22,15 @@ int main(int argc, char **argv)
     }
     std::cout << std::endl << "-------------------" << std::endl;
 
+    for (ForwardList<int>::Iterator it = begin(li); it != end(li); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    for (auto v: li) {
+        std::cout << v << " ";
+    }
+    std::cout << std::endl << "-------------------" << std::endl;
+
     //const ForwardList<int> li1;
     //ForwardList<int>::ConstIterator cit1 = li1.Begin();
 

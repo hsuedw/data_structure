@@ -19,5 +19,17 @@ std::ostream& operator<<(std::ostream& os, ForwardList<T>& li)
     return os;
 }
 
+template <typename T>
+typename ForwardList<T>::Iterator begin(ForwardList<T>& container)
+{
+    return container.Begin();
+}
+
+template <typename T>
+typename ForwardList<T>::Iterator end(ForwardList<T>& container)
+{
+    return container.End();
+}
+
 
 #endif //_FORWARD_LIST_UTILITY_HPP_
