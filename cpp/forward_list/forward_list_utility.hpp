@@ -12,7 +12,23 @@ std::ostream& operator<<(std::ostream& os, ForwardList<T>& li)
         os << *it;
         ++it;
         if (it != li.End()) {
-            os << " ";
+            os << ", ";
+        }
+    }
+    os << ">";
+    return os;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const ForwardList<T>& li)
+{
+    os << "<";
+    typename ForwardList<T>::ConstIterator it = li.Begin();
+    while (it != li.End()) {
+        os << *it;
+        ++it;
+        if (it != li.End()) {
+            os << ", ";
         }
     }
     os << ">";
@@ -27,6 +43,18 @@ typename ForwardList<T>::Iterator begin(ForwardList<T>& container)
 
 template <typename T>
 typename ForwardList<T>::Iterator end(ForwardList<T>& container)
+{
+    return container.End();
+}
+
+template <typename T>
+typename ForwardList<T>::ConstIterator begin(const ForwardList<T>& container)
+{
+    return container.Begin();
+}
+
+template <typename T>
+typename ForwardList<T>::ConstIterator end(const ForwardList<T>& container)
 {
     return container.End();
 }

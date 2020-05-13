@@ -1,12 +1,16 @@
 #ifndef _FORWARD_LIST_HPP_
 #define _FORWARD_LIST_HPP_
 
+#include <utility>
+
 template <typename T>
 class ForwardList
 {
 public:
     ForwardList();
+    ForwardList(const ForwardList<T>& other);
     ~ForwardList();
+    ForwardList<T>& operator=(const ForwardList<T>& other);
 
     bool Empty();
     void PushFront(const T& data);
@@ -59,11 +63,35 @@ ForwardList<T>::ForwardList() : head_(nullptr)
 }
 
 template <typename T>
+ForwardList<T>::ForwardList(const ForwardList<T>& other)
+{
+    ListNode_ tmp(T{});
+    ListNode_* insertAt = &tmp;
+    for (ListNode_* copyFrom = other.head_; copyFrom != nullptr; copyFrom = copyFrom->next) {
+        insertAt->next = new ListNode_(copyFrom->data);
+        insertAt = insertAt->next;
+    }
+    head_ = tmp.next;
+}
+
+template <typename T>
 ForwardList<T>::~ForwardList()
 {
     if (!Empty()) {
         PopFront();
     }
+}
+
+template <typename T>
+ForwardList<T>& ForwardList<T>::operator=(const ForwardList<T>& other)
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    ForwardList<T> tmpList = other;
+    std::swap(head_, tmpList.head_);
+    return *this;
 }
 
 template <typename T>
