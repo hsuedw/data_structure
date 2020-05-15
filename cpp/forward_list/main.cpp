@@ -48,6 +48,14 @@ int main(int argc, char **argv)
     std::cout << std::endl << "-------------------" << std::endl;
     //ForwardList<int>::ConstIterator cit1 = li1.Begin();
 
+    ForwardList<double> liE = {1.1, 2.2, 3.3, 4.4, 5.5, 6.6};
+    std::cout << "liE: " << liE;
+    std::cout << std::endl << "-------------------" << std::endl;
+ 
+    const ForwardList<double> liF = {9.1, 9.2, 9.3, 9.4, 9.5, 9.6};
+    std::cout << "liF: " << liF;
+    std::cout << std::endl << "-------------------" << std::endl;
+   
 
     return 0;
 }

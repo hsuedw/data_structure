@@ -2,6 +2,7 @@
 #define _FORWARD_LIST_HPP_
 
 #include <utility>
+#include <initializer_list>
 
 template <typename T>
 class ForwardList
@@ -9,6 +10,7 @@ class ForwardList
 public:
     ForwardList();
     ForwardList(const ForwardList<T>& other);
+    ForwardList(const std::initializer_list<T> &other);
     ~ForwardList();
     ForwardList<T>& operator=(const ForwardList<T>& other);
 
@@ -69,6 +71,18 @@ ForwardList<T>::ForwardList(const ForwardList<T>& other)
     ListNode_* insertAt = &tmp;
     for (ListNode_* copyFrom = other.head_; copyFrom != nullptr; copyFrom = copyFrom->next) {
         insertAt->next = new ListNode_(copyFrom->data);
+        insertAt = insertAt->next;
+    }
+    head_ = tmp.next;
+}
+
+template <typename T>
+ForwardList<T>::ForwardList(const std::initializer_list<T> &other)
+{
+    ListNode_ tmp(T{});
+    ListNode_* insertAt = &tmp;
+    for (const T& v: other) {
+        insertAt->next = new ListNode_(v);
         insertAt = insertAt->next;
     }
     head_ = tmp.next;
