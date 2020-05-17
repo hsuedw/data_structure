@@ -293,7 +293,7 @@ void Vector<T>::PushBack(T &&val)
     if (size_ >= capacity_) {
         Resize(size_);
     }
-    data_[size_] = std::move(val);
+    std::swap(data_[size_], val);
     ++size_;
 }
 

@@ -147,5 +147,11 @@ int main(int argc, char **argv)
     }
     std::cout << std::endl << "-------------------" << std::endl;
 
+    double xx = 123.456;
+    a.PushBack(std::move(xx));
+    std::cout << "a: " << a << std::endl;
+    std::cout << "xx: " << xx;
+    std::cout << std::endl << "-------------------" << std::endl;
+
     return 0;
 }

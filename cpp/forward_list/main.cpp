@@ -55,7 +55,16 @@ int main(int argc, char **argv)
     const ForwardList<double> liF = {9.1, 9.2, 9.3, 9.4, 9.5, 9.6};
     std::cout << "liF: " << liF;
     std::cout << std::endl << "-------------------" << std::endl;
-   
+
+    std::cout << "li front = " << li.Front() << std::endl;
+    std::cout << "liF front = " << liF.Front() << std::endl;
+    std::cout << "-------------------" << std::endl;
+
+    double hi = 0.8;
+    liE.PushFront(std::move(hi));
+    std::cout << "liE: " << liE;
+    std::cout << std::endl << "-------------------" << std::endl;
+    std::cout << "hi: " << hi << std::endl;
 
     return 0;
 }

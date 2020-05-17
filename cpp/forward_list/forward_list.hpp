@@ -15,7 +15,12 @@ public:
     ForwardList<T>& operator=(const ForwardList<T>& other);
 
     bool Empty();
+
+    T& Front();
+    const T& Front() const;
+
     void PushFront(const T& data);
+    void PushFront(T&& data);
     void PopFront();
 
     class Iterator
@@ -54,6 +59,9 @@ private:
         T data;
         ListNode_* next;
         ListNode_(const T& data) : data(data), next(nullptr) {}
+        ListNode_(T&& data) : next(nullptr) {
+            std::swap(this->data, data);
+        }
     };
 
     ListNode_* head_;
@@ -115,10 +123,30 @@ bool ForwardList<T>::Empty()
 }
 
 template <typename T>
+T& ForwardList<T>::Front()
+{
+    return head_->data;
+}
+
+template <typename T>
+const T& ForwardList<T>::Front() const
+{
+    return head_->data;
+}
+
+template <typename T>
 void ForwardList<T>::PushFront(const T& data)
 {
     ListNode_* tmp = head_;
     head_ = new ListNode_(data);
+    head_->next = tmp;
+}
+
+template <typename T>
+void ForwardList<T>::PushFront(T&& data)
+{
+    ListNode_* tmp = head_;
+    head_ = new ListNode_(std::move(data));
     head_->next = tmp;
 }
 
