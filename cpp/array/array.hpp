@@ -16,7 +16,7 @@ public:
 
     size_t Size();
     size_t Size() const;
-    bool Empty();
+    constexpr bool Empty() noexcept;
 
     Array<T, N> & operator=(const Array<T, N> &other) = delete;
     T& operator[](const size_t i);
@@ -34,6 +34,7 @@ public:
     class Iterator {
         friend class Array;
     public:
+        bool operator==(const Iterator& other);
         bool operator!=(const Iterator& other); 
         T& operator*();
         Iterator& operator++();
@@ -48,6 +49,7 @@ public:
     class ConstIterator {
         friend class Array;
     public:
+        bool operator==(const ConstIterator& other); 
         bool operator!=(const ConstIterator& other); 
         const T& operator*() const;
         ConstIterator& operator++();
@@ -112,7 +114,7 @@ size_t Array<T, N>::Size() const
 }
 
 template <typename T, size_t N>
-bool Array<T, N>::Empty()
+constexpr bool Array<T, N>::Empty() noexcept
 {
     return Size() == 0;
 }
@@ -176,8 +178,43 @@ void Array<T, N>::Fill(const T& val)
 template <typename T, size_t N>
 void Array<T, N>::Swap(Array<T, N> &other)
 {
-    std::swap(size_, other.size_);
     std::swap(data_, other.data_);
+}
+
+template <typename T, size_t N>
+typename Array<T, N>::Iterator Array<T, N>::Begin()
+{
+    return Array<T, N>::Iterator(data_);
+}
+
+template <typename T, size_t N>
+typename Array<T, N>::Iterator Array<T, N>::End()
+{
+    return Array<T, N>::Iterator(data_ + Size());
+}
+
+template <typename T, size_t N>
+typename Array<T, N>::ConstIterator Array<T, N>::CBegin() const
+{
+    return Array<T, N>::ConstIterator(data_);
+}
+
+template <typename T, size_t N>
+typename Array<T, N>::ConstIterator Array<T, N>::CEnd() const
+{
+    return Array<T, N>::ConstIterator(data_ + Size());
+}
+
+template <typename T, size_t N>
+typename Array<T, N>::ConstIterator Array<T, N>::Begin() const
+{
+    return Array<T, N>::ConstIterator(data_);
+}
+
+template <typename T, size_t N>
+typename Array<T, N>::ConstIterator Array<T, N>::End() const
+{
+    return Array<T, N>::ConstIterator(data_ + Size());
 }
 
 /*--------- iterator -----------------------*/

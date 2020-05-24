@@ -3,14 +3,20 @@
 #define _ARRAY_ITERATOR_HPP_
 
 template <typename T, size_t N>
-Array<T, N>::Iterator::Iterator(T* ptr) : ptr_(ptr)
-{
-}
-
-template <typename T, size_t N>
 bool Array<T, N>::Iterator::operator!=(const Array<T, N>::Iterator& other)
 {
     return ptr_ != other.ptr_;
+}
+
+template <typename T, size_t N>
+bool Array<T, N>::Iterator::operator==(const Array<T, N>::Iterator& other)
+{
+    return ptr_ == other.ptr_;
+}
+
+template <typename T, size_t N>
+Array<T, N>::Iterator::Iterator(T* ptr) : ptr_(ptr)
+{
 }
 
 template <typename T, size_t N>
@@ -32,18 +38,6 @@ typename Array<T, N>::Iterator Array<T, N>::Iterator::operator++(int)
     Iterator ret(ptr_);
     ++ptr_;
     return ret;
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::Iterator Array<T, N>::Begin()
-{
-    return Array<T, N>::Iterator(data_);
-}
-
-template <typename T, size_t N>
-typename Array<T, N>::Iterator Array<T, N>::End()
-{
-    return Array<T, N>::Iterator(data_ + Size());
 }
 
 #endif //_ARRAY_ITERATOR_HPP_
