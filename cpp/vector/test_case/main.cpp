@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "vector.hpp"
+#include <vector.hpp>
 
 int main(int argc, char **argv)
 {
