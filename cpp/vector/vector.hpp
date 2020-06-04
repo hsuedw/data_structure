@@ -5,26 +5,24 @@
 #include <utility>
 #include <initializer_list>
 
-#define DEFAULT_VECTOR_CAPACITY (8)
-
 template <typename T>
 class Vector
 {
 public:
     Vector();
-    Vector(size_t n);
-    Vector(const Vector<T> &other);
-    Vector(const std::initializer_list<T> &other);
-    Vector<T>& operator=(const Vector<T>& other);
-    Vector<T>& operator=(Vector<T>&& other);
-    Vector<T>& operator=(std::initializer_list<T> &other);
+    //Vector(size_t n);
+    //Vector(const Vector<T> &other);
+    //Vector(const std::initializer_list<T> &other);
+    //Vector<T>& operator=(const Vector<T>& other);
+    //Vector<T>& operator=(Vector<T>&& other);
+    //Vector<T>& operator=(std::initializer_list<T> &other);
     ~Vector();
 
     size_t Size() const;
     void Resize(size_t n);
     size_t Capacity() const;
     bool Empty() const;
-    void Reserve(size_t n);
+    //void Reserve(size_t n);
 
     T& operator[](size_t n);
     const T& operator[](size_t n) const;
@@ -35,10 +33,11 @@ public:
 
     void PushBack(const T &val);
     void PushBack(T &&val);
-    void PopBack();
-    void Swap(Vector<T> &other);
-    void Clear();
+    //void PopBack();
+    //void Swap(Vector<T> &other);
+    //void Clear();
 
+#if 0
     class Iterator
     {
         friend class Vector;
@@ -70,6 +69,7 @@ public:
     ConstIterator CEnd() const;
     ConstIterator Begin() const;
     ConstIterator End() const;
+#endif
 
 private:
     T* data_;
@@ -81,10 +81,11 @@ template <typename T>
 Vector<T>::Vector()
 {
     size_ = 0;
-    capacity_ = DEFAULT_VECTOR_CAPACITY;
-    data_ = new T[capacity_];
+    capacity_ = 0;
+    data_ = nullptr;
 }
 
+#if 0
 template <typename T>
 Vector<T>::Vector(size_t n)
 {
@@ -94,7 +95,9 @@ Vector<T>::Vector(size_t n)
     }
     data_ = new T[capacity_];
 }
+#endif
 
+#if 0
 template <typename T>
 Vector<T>::Vector(const Vector<T>& other)
 {
@@ -105,7 +108,9 @@ Vector<T>::Vector(const Vector<T>& other)
         data_[i] = other[i];
     }
 }
+#endif
 
+#if 0
 template <typename T>
 Vector<T>::Vector(const std::initializer_list<T>& other)
 {
@@ -124,7 +129,9 @@ Vector<T>::Vector(const std::initializer_list<T>& other)
         ++i;
     }
 }
+#endif
 
+#if 0
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& other)
 {
@@ -144,7 +151,9 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& other)
         data_[i] = other[i];
     }
 }
+#endif
 
+#if 0
 template <typename T>
 Vector<T>& Vector<T>::operator=(Vector<T>&& other)
 {
@@ -161,7 +170,9 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& other)
 
     return *this;
 }
+#endif
 
+#if 0
 template <typename T>
 Vector<T>& Vector<T>::operator=(std::initializer_list<T> &other)
 {
@@ -178,6 +189,7 @@ Vector<T>& Vector<T>::operator=(std::initializer_list<T> &other)
 
     return *this;
 }
+#endif
 
 template <typename T>
 Vector<T>::~Vector()
@@ -196,23 +208,23 @@ size_t Vector<T>::Size() const
 template <typename T>
 void Vector<T>::Resize(size_t n)
 {
-    if (n > capacity_) {
-        capacity_ = n * 2;
-        T* tempData = new T[capacity_];
-        for (int i = 0; i <= size_; ++i) {
-            tempData[i] = data_[i];
+    if (size_ == n) {
+        return;
+    } else if (size_ > n) {
+        size_ = n;
+    } else {
+	// size_ < n
+        if (n >= capacity_) {
+            capacity_ = 2 * n;
+            T* temp = new T[capacity_];
+            for (int i = 0; i < size_; ++i) {
+                temp[i] = data_[i];
+            }
+            delete[] data_;
+            data_ = temp;
         }
-        delete[] data_;
-        data_ = tempData;
+        size_ = n;
     }
-
-    if (n > size_) {
-        for (int i = size_; i < n; ++i) {
-            data_[i] = 0;
-        }
-    }
-
-    size_ = n;
 }
 
 template <typename T>
@@ -227,6 +239,7 @@ bool Vector<T>::Empty() const
     return size_ == 0;
 }
 
+#if 0
 template <typename T>
 void Vector<T>::Reserve(size_t n)
 {
@@ -240,6 +253,7 @@ void Vector<T>::Reserve(size_t n)
         data_ = tempData;
     }
 }
+#endif
 
 template <typename T>
 T& Vector<T>::operator[](size_t n)
@@ -280,23 +294,28 @@ const T& Vector<T>::Back() const
 template <typename T>
 void Vector<T>::PushBack(const T &val)
 {
-    if (size_ >= capacity_) {
-        Resize(size_);
+    if (0 == capacity_) {
+        Resize(1);
+        data_ = new T[capacity_];
+	data_[0] = val;
+    } else {
+        if (size_ >= capacity_) {
+            Resize(size_ + 1);
+	    data_[size_ - 1] = val;
+	} else {
+	    data_[size_] = val;
+	    ++size_;
+	}
     }
-    data_[size_] = val;
-    ++size_;
 }
 
 template <typename T>
 void Vector<T>::PushBack(T &&val)
 {
-    if (size_ >= capacity_) {
-        Resize(size_);
-    }
-    std::swap(data_[size_], val);
-    ++size_;
+    PushBack(val);
 }
 
+#if 0
 template <typename T>
 void Vector<T>::PopBack()
 {
@@ -304,7 +323,9 @@ void Vector<T>::PopBack()
         --size_;
     }
 }
+#endif
 
+#if 0
 template <typename T>
 void Vector<T>::Swap(Vector<T> &other)
 {
@@ -312,12 +333,15 @@ void Vector<T>::Swap(Vector<T> &other)
     std::swap(size_, other.size_);
     std::swap(capacity_, other.capacity_);
 }
+#endif
 
+#if 0
 template <typename T>
 void Vector<T>::Clear()
 {
     size_ = 0;
 }
+#endif
 
 /*------------------------------------------*/
 #include "vector_iterator.hpp"

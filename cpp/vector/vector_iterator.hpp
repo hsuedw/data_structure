@@ -1,6 +1,7 @@
 #ifndef _VECTOR_ITERATOR_HPP_
 #define _VECTOR_ITERATOR_HPP_
 
+#if 0
 template <typename T>
 Vector<T>::Iterator::Iterator(T* ptr) : ptr_(ptr)
 {
@@ -44,6 +45,7 @@ typename Vector<T>::Iterator Vector<T>::End()
 {
     return Vector<T>::Iterator(data_ + Size());
 }
+#endif
 
 
 #endif //_VECTOR_ITERATOR_HPP_
