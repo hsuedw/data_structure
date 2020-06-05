@@ -4,6 +4,9 @@ all:
 	g++ -std=c++11 -I../ test_pop_back.cpp -o ./output/test_pop_back
 	g++ -std=c++11 -I../ test_swap.cpp -o ./output/test_swap
 	g++ -std=c++11 -I../ test_clear.cpp -o ./output/test_clear
+	g++ -std=c++11 -I../ test_reserve.cpp -o ./output/test_reserve
+	g++ -std=c++11 -I../ test_fill_constructor.cpp -o ./output/test_fill_constructor
+	g++ -std=c++11 -I../ test_initializer_list_constructor.cpp -o ./output/test_initializer_list_constructor
         
 clean:
 	rm -rf ./output

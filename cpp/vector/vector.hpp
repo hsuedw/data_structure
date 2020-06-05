@@ -10,9 +10,10 @@ class Vector
 {
 public:
     Vector();
-    //Vector(size_t n);
-    //Vector(const Vector<T> &other);
-    //Vector(const std::initializer_list<T> &other);
+    Vector(size_t n);
+    Vector(size_t n, const T& value);
+    Vector(const Vector<T> &other);
+    Vector(const std::initializer_list<T> &other);
     //Vector<T>& operator=(const Vector<T>& other);
     //Vector<T>& operator=(Vector<T>&& other);
     //Vector<T>& operator=(std::initializer_list<T> &other);
@@ -22,7 +23,7 @@ public:
     void Resize(size_t n);
     size_t Capacity() const;
     bool Empty() const;
-    //void Reserve(size_t n);
+    void Reserve(size_t n);
 
     T& operator[](size_t n);
     const T& operator[](size_t n) const;
@@ -85,19 +86,36 @@ Vector<T>::Vector()
     data_ = nullptr;
 }
 
-#if 0
 template <typename T>
 Vector<T>::Vector(size_t n)
 {
     size_ = n;
-    if (0 == n) {
-        capacity_ = DEFAULT_VECTOR_CAPACITY;
-    }
-    data_ = new T[capacity_];
-}
-#endif
+    capacity_ = n;
 
-#if 0
+    if (0 != capacity_) {
+        data_ = new T[capacity_];
+    }
+
+    for (size_t i = 0; i < capacity_; ++i) {
+        data_[i] = T{};
+    }
+}
+
+template <typename T>
+Vector<T>::Vector(size_t n, const T& value)
+{
+    size_ = n;
+    capacity_ = n;
+
+    if (0 != capacity_) {
+        data_ = new T[capacity_];
+    }
+
+    for (size_t i = 0; i < capacity_; ++i) {
+        data_[i] = value;
+    }
+}
+
 template <typename T>
 Vector<T>::Vector(const Vector<T>& other)
 {
@@ -108,19 +126,16 @@ Vector<T>::Vector(const Vector<T>& other)
         data_[i] = other[i];
     }
 }
-#endif
 
-#if 0
 template <typename T>
 Vector<T>::Vector(const std::initializer_list<T>& other)
 {
     size_ = other.size();
+    capacity_ = other.size();
     if (0 == size_) {
-        capacity_ = DEFAULT_VECTOR_CAPACITY;
-        data_ = new T[capacity_];
+        data_ = nullptr;
         return;
     }
-    capacity_ = size_ * 2;
     data_ = new T[capacity_];
 
     size_t i = 0;
@@ -129,7 +144,6 @@ Vector<T>::Vector(const std::initializer_list<T>& other)
         ++i;
     }
 }
-#endif
 
 #if 0
 template <typename T>
@@ -239,7 +253,6 @@ bool Vector<T>::Empty() const
     return size_ == 0;
 }
 
-#if 0
 template <typename T>
 void Vector<T>::Reserve(size_t n)
 {
@@ -253,7 +266,6 @@ void Vector<T>::Reserve(size_t n)
         data_ = tempData;
     }
 }
-#endif
 
 template <typename T>
 T& Vector<T>::operator[](size_t n)

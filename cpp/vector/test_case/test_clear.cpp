@@ -3,8 +3,7 @@
 #include <vector.hpp>
 
 /*
- * Test the default constructor, PushBack()
- * and Size() of Array class.
+ * Test the default Clear() of Array class.
  */
 
 int main(int argc, char **argv)
