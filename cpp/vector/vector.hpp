@@ -33,9 +33,9 @@ public:
 
     void PushBack(const T &val);
     void PushBack(T &&val);
-    //void PopBack();
-    //void Swap(Vector<T> &other);
-    //void Clear();
+    void PopBack();
+    void Swap(Vector<T> &other);
+    void Clear();
 
 #if 0
     class Iterator
@@ -315,7 +315,6 @@ void Vector<T>::PushBack(T &&val)
     PushBack(val);
 }
 
-#if 0
 template <typename T>
 void Vector<T>::PopBack()
 {
@@ -323,9 +322,7 @@ void Vector<T>::PopBack()
         --size_;
     }
 }
-#endif
 
-#if 0
 template <typename T>
 void Vector<T>::Swap(Vector<T> &other)
 {
@@ -333,15 +330,12 @@ void Vector<T>::Swap(Vector<T> &other)
     std::swap(size_, other.size_);
     std::swap(capacity_, other.capacity_);
 }
-#endif
 
-#if 0
 template <typename T>
 void Vector<T>::Clear()
 {
     size_ = 0;
 }
-#endif
 
 /*------------------------------------------*/
 #include "vector_iterator.hpp"
