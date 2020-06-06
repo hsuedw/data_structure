@@ -3,7 +3,7 @@
 #include <vector.hpp>
 
 /*
- * Test the default PopBack() of Array class.
+ * Test the default PopBack() of Vector class.
  */
 
 int main(int argc, char **argv)

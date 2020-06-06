@@ -3,7 +3,7 @@
 #include <vector.hpp>
 
 /*
- * Test the default Clear() of Array class.
+ * Test the default Clear() of Vector class.
  */
 
 int main(int argc, char **argv)

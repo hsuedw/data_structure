@@ -4,7 +4,7 @@
 
 /*
  * Test the default constructor, PushBack()
- * and Size() of Array class.
+ * and Size() of Vector class.
  */
 
 int main(int argc, char **argv)

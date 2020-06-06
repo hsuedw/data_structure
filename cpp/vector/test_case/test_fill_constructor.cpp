@@ -3,7 +3,8 @@
 #include <vector.hpp>
 
 /*
- * Test the fill constructor and operator[]().
+ * Test the fill constructor and operator[]() 
+ * of Vector class.
  */
 
 int main(int argc, char **argv)

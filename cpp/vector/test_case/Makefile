@@ -7,6 +7,8 @@ all:
 	g++ -std=c++11 -I../ test_reserve.cpp -o ./output/test_reserve
 	g++ -std=c++11 -I../ test_fill_constructor.cpp -o ./output/test_fill_constructor
 	g++ -std=c++11 -I../ test_initializer_list_constructor.cpp -o ./output/test_initializer_list_constructor
+	g++ -std=c++11 -I../ test_operator=.cpp -o ./output/test_operator=
+	g++ -std=c++11 -I../ test_copy_constructor.cpp -o ./output/test_copy_constructor
         
 clean:
 	rm -rf ./output

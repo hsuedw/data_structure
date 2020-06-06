@@ -12,11 +12,12 @@ public:
     Vector();
     Vector(size_t n);
     Vector(size_t n, const T& value);
-    Vector(const Vector<T> &other);
-    Vector(const std::initializer_list<T> &other);
-    //Vector<T>& operator=(const Vector<T>& other);
-    //Vector<T>& operator=(Vector<T>&& other);
-    //Vector<T>& operator=(std::initializer_list<T> &other);
+    Vector(const Vector<T>& other);
+    Vector(Vector<T>&& other);
+    Vector(std::initializer_list<T> other);
+    Vector<T>& operator=(const Vector<T>& other);
+    Vector<T>& operator=(Vector<T>&& other);
+    Vector<T>& operator=(std::initializer_list<T> other);
     ~Vector();
 
     size_t Size() const;
@@ -128,7 +129,17 @@ Vector<T>::Vector(const Vector<T>& other)
 }
 
 template <typename T>
-Vector<T>::Vector(const std::initializer_list<T>& other)
+Vector<T>::Vector(Vector<T>&& other)
+{
+    size_ = other.Size();
+    capacity_ = other.Capacity();
+    data_ = other.data_;
+
+    other.Clear();
+}
+
+template <typename T>
+Vector<T>::Vector(std::initializer_list<T> other)
 {
     size_ = other.size();
     capacity_ = other.size();
@@ -145,7 +156,6 @@ Vector<T>::Vector(const std::initializer_list<T>& other)
     }
 }
 
-#if 0
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& other)
 {
@@ -153,57 +163,55 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& other)
         return *this;
     }
 
-    if (size_ < other.Size()) {
-        size_ = other.Size();
-        if (size_ < capacity_) {
-            capacity_ = size_ * 2;
-            delete[] data_;
-            data_ = new T[capacity_];
-        }
+    if (other.Size() > capacity_) {
+        capacity_ = other.Size();
+	delete[] data_;
+	data_ = new T[capacity_];
     }
-    for (size_t i = 0; i < other.Size(); ++i) {
+    size_ = other.Size();
+
+    for (size_t i = 0; i < size_; ++i) {
         data_[i] = other[i];
     }
-}
-#endif
 
-#if 0
+    return *this;
+}
+
 template <typename T>
 Vector<T>& Vector<T>::operator=(Vector<T>&& other)
 {
-    if (nullptr != data_) {
-        delete[] data_;
+    if (this == &other) {
+        return *this;
     }
+
+    delete[] data_;
+    size_ = other.Size();
+    capacity_ = other.Capacity();
     data_ = other.data_;
-    size_ = other.size_;
-    capacity_ = other.capacity_;
 
-    other.size_ = 0;
-    other.capacity_ = DEFAULT_VECTOR_CAPACITY;
-    other.data_ = new T[capacity_];
+    other.Clear();
 
     return *this;
 }
-#endif
 
-#if 0
 template <typename T>
-Vector<T>& Vector<T>::operator=(std::initializer_list<T> &other)
+Vector<T>& Vector<T>::operator=(std::initializer_list<T> other)
 {
-    size_ = other.size;
-    if (size_ > capacity_) {
-        delete[] data_;
-        capacity_ = size_ * 2;
-        data_ = new T[capacity_];
+    if (other.size() > capacity_) {
+        capacity_ = other.size();
+	delete[] data_;
+	data_ = new T[capacity_];
     }
+    size_ = other.size();
 
-    for (int i = 0; i < size_; ++i) {
-        data_[i] = other[i];
+    int i = 0;
+    for (auto &v: other) {
+        data_[i] = v;
+	++i;
     }
 
     return *this;
 }
-#endif
 
 template <typename T>
 Vector<T>::~Vector()
