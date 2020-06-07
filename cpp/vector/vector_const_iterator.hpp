@@ -1,7 +1,6 @@
 #ifndef _VECTOR_CONST_ITERATOR_HPP_
 #define _VECTOR_CONST_ITERATOR_HPP_
 
-#if 0
 template <typename T>
 Vector<T>::ConstIterator::ConstIterator(const T* ptr) : ptr_(ptr)
 {
@@ -57,6 +56,5 @@ typename Vector<T>::ConstIterator Vector<T>::End() const
 {
     return Vector<T>::ConstIterator(data_ + Size());
 }
-#endif
 
 #endif //_VECTOR_CONST_ITERATOR_HPP_

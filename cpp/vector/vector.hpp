@@ -39,7 +39,6 @@ public:
     void Swap(Vector<T> &other);
     void Clear();
 
-#if 0
     class Iterator
     {
         friend class Vector;
@@ -71,7 +70,6 @@ public:
     ConstIterator CEnd() const;
     ConstIterator Begin() const;
     ConstIterator End() const;
-#endif
 
 private:
     T* data_;

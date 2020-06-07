@@ -19,7 +19,6 @@ std::ostream& operator<<(std::ostream& os, const Vector<T>& vec)
     return os;
 }
 
-#if 0
 template <typename T>
 typename Vector<T>::Iterator begin(Vector<T>& container)
 {
@@ -43,6 +42,5 @@ typename Vector<T>::ConstIterator end(const Vector<T>& container)
 {
     return container.End();
 }
-#endif
 
 #endif // _VECTOR_UTILITY_HPP_
