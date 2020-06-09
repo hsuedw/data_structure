@@ -9,20 +9,21 @@ class ForwardList
 {
 public:
     ForwardList();
-    ForwardList(const ForwardList<T>& other);
-    ForwardList(const std::initializer_list<T> &other);
+    //ForwardList(const ForwardList<T>& other);
+    //ForwardList(const std::initializer_list<T> &other);
     ~ForwardList();
-    ForwardList<T>& operator=(const ForwardList<T>& other);
+    //ForwardList<T>& operator=(const ForwardList<T>& other);
 
     bool Empty();
 
-    T& Front();
-    const T& Front() const;
+    //T& Front();
+    //const T& Front() const;
 
     void PushFront(const T& data);
     void PushFront(T&& data);
     void PopFront();
 
+#if 0
     class Iterator
     {
         friend ForwardList;
@@ -52,6 +53,18 @@ public:
     ConstIterator CEnd();
     ConstIterator Begin() const;
     ConstIterator End() const;
+#endif
+    void PrintForwardList()
+    {
+        std::cout << "<";
+        for (ListNode_* it = head_; it != nullptr; it = it->next) {
+            std::cout << it->data;
+	    if (nullptr != it->next) {
+                std::cout << ", ";
+	    }
+	}
+        std::cout << ">";
+    }
 
 private:
     struct ListNode_
@@ -60,18 +73,21 @@ private:
         ListNode_* next;
         ListNode_(const T& data) : data(data), next(nullptr) {}
         ListNode_(T&& data) : next(nullptr) {
+            std::cout << "hello" << std::endl;
             std::swap(this->data, data);
         }
     };
 
     ListNode_* head_;
+    ListNode_* before_head_;
 };
 
 template <typename T>
-ForwardList<T>::ForwardList() : head_(nullptr)
+ForwardList<T>::ForwardList() : head_(nullptr), before_head_(nullptr)
 {
 }
 
+#if 0
 template <typename T>
 ForwardList<T>::ForwardList(const ForwardList<T>& other)
 {
@@ -83,7 +99,9 @@ ForwardList<T>::ForwardList(const ForwardList<T>& other)
     }
     head_ = tmp.next;
 }
+#endif
 
+#if 0
 template <typename T>
 ForwardList<T>::ForwardList(const std::initializer_list<T> &other)
 {
@@ -95,6 +113,7 @@ ForwardList<T>::ForwardList(const std::initializer_list<T> &other)
     }
     head_ = tmp.next;
 }
+#endif
 
 template <typename T>
 ForwardList<T>::~ForwardList()
@@ -102,8 +121,10 @@ ForwardList<T>::~ForwardList()
     if (!Empty()) {
         PopFront();
     }
+    delete before_head_;
 }
 
+#if 0
 template <typename T>
 ForwardList<T>& ForwardList<T>::operator=(const ForwardList<T>& other)
 {
@@ -115,6 +136,7 @@ ForwardList<T>& ForwardList<T>::operator=(const ForwardList<T>& other)
     std::swap(head_, tmpList.head_);
     return *this;
 }
+#endif
 
 template <typename T>
 bool ForwardList<T>::Empty()
@@ -122,17 +144,21 @@ bool ForwardList<T>::Empty()
     return nullptr == head_;
 }
 
+#if 0
 template <typename T>
 T& ForwardList<T>::Front()
 {
     return head_->data;
 }
+#endif
 
+#if 0
 template <typename T>
 const T& ForwardList<T>::Front() const
 {
     return head_->data;
 }
+#endif
 
 template <typename T>
 void ForwardList<T>::PushFront(const T& data)
@@ -140,6 +166,10 @@ void ForwardList<T>::PushFront(const T& data)
     ListNode_* tmp = head_;
     head_ = new ListNode_(data);
     head_->next = tmp;
+    if (nullptr == before_head_) {
+        before_head_ = new ListNode_(T{});
+    }
+    before_head_->next = head_;
 }
 
 template <typename T>
@@ -148,6 +178,10 @@ void ForwardList<T>::PushFront(T&& data)
     ListNode_* tmp = head_;
     head_ = new ListNode_(std::move(data));
     head_->next = tmp;
+    if (nullptr == before_head_) {
+        before_head_ = new ListNode_(T{});
+    }
+    before_head_->next = head_;
 }
 
 template <typename T>
@@ -156,6 +190,7 @@ void ForwardList<T>::PopFront()
     ListNode_* tmp = head_;
     head_ = head_->next;
     delete tmp;
+    before_head_ = head_;
 }
 
 /*------------------------------------------*/
