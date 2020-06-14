@@ -10,9 +10,9 @@ class ForwardList
 public:
     ForwardList();
     ForwardList(const ForwardList<T>& other);
-    //ForwardList(const std::initializer_list<T> &other);
+    ForwardList(const std::initializer_list<T> &other);
     ~ForwardList();
-    //ForwardList<T>& operator=(const ForwardList<T>& other);
+    ForwardList<T>& operator=(const ForwardList<T>& other);
 
     bool Empty();
 
@@ -87,7 +87,6 @@ ForwardList<T>::ForwardList(const ForwardList<T>& other)
     before_head_->next = head_;
 }
 
-#if 0
 template <typename T>
 ForwardList<T>::ForwardList(const std::initializer_list<T> &other)
 {
@@ -98,8 +97,9 @@ ForwardList<T>::ForwardList(const std::initializer_list<T> &other)
         insertAt = insertAt->next;
     }
     head_ = tmp.next;
+    before_head_ = new ListNode_(T{});
+    before_head_->next = head_;
 }
-#endif
 
 template <typename T>
 ForwardList<T>::~ForwardList()
@@ -110,7 +110,6 @@ ForwardList<T>::~ForwardList()
     delete before_head_;
 }
 
-#if 0
 template <typename T>
 ForwardList<T>& ForwardList<T>::operator=(const ForwardList<T>& other)
 {
@@ -120,9 +119,9 @@ ForwardList<T>& ForwardList<T>::operator=(const ForwardList<T>& other)
 
     ForwardList<T> tmpList = other;
     std::swap(head_, tmpList.head_);
+    std::swap(before_head_, tmpList.before_head_);
     return *this;
 }
-#endif
 
 template <typename T>
 bool ForwardList<T>::Empty()
