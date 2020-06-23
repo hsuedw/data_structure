@@ -10,8 +10,11 @@ int main(int argc, char **argv)
     a.PushFront(1.3);
     a.PushFront(1.4);
     a.PushFront(1.5);
-    a.PrintList();
-    std::cout << "-------------" << std::endl;
+    a.PushFront(1.6);
+    for (List<double>::Iterator it = a.Begin(); it != a.End(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl << "-------------" << std::endl;
 
     List<double> b;
     double value = 2.1;

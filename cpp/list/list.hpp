@@ -25,6 +25,20 @@ public:
        std::cout << std::endl;
     }
 
+    class Iterator
+    {
+        friend List;
+    public:
+        bool operator!=(const Iterator& it);
+	Iterator& operator++();
+	T& operator*();
+    private:
+	Iterator(typename List::ListNode_ *ptr);
+        typename List::ListNode_ *ptr_;
+    };
+    Iterator Begin();
+    Iterator End();
+
 private:
     struct ListNode_
     {
@@ -104,5 +118,8 @@ void List<T>::PopFront()
     }
     delete tmp;
 }
+
+/*------------------------------------------*/
+#include "list_iterator.hpp"
 
 #endif //_LIST_HPP_
