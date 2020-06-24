@@ -11,9 +11,7 @@ int main(int argc, char **argv)
     a.PushFront(1.4);
     a.PushFront(1.5);
     a.PushFront(1.6);
-    for (List<double>::Iterator it = a.Begin(); it != a.End(); ++it) {
-        std::cout << *it << " ";
-    }
+    std::cout << "a: " << a;
     std::cout << std::endl << "-------------" << std::endl;
 
     List<double> b;
@@ -29,8 +27,8 @@ int main(int argc, char **argv)
     b.PushFront(value);
     value = 2.6;
     b.PushFront(value);
-    b.PrintList();
-    std::cout << "-------------" << std::endl;
+    std::cout << "b: " << b;
+    std::cout << std::endl << "-------------" << std::endl;
 
     return 0;
 }

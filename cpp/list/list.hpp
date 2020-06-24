@@ -18,13 +18,6 @@ public:
     void PushFront(T&& val);
     void PopFront();
 
-    void PrintList() {
-       for (ListNode_ *it = head_; it != nullptr; it = it->next) {
-           std::cout << it->data << " ";
-       } 
-       std::cout << std::endl;
-    }
-
     class Iterator
     {
         friend List;
@@ -38,6 +31,22 @@ public:
     };
     Iterator Begin();
     Iterator End();
+
+    class ConstIterator
+    {
+        friend List;
+    public:
+        bool operator!=(const ConstIterator& it);
+        ConstIterator& operator++();
+        const T& operator*();
+    private:
+        ConstIterator(typename List::ListNode_ *ptr);
+        const typename List::ListNode_ *ptr_;
+    };
+    ConstIterator CBegin();
+    ConstIterator CEnd();
+    ConstIterator Begin() const;
+    ConstIterator End() const;
 
 private:
     struct ListNode_
@@ -121,5 +130,11 @@ void List<T>::PopFront()
 
 /*------------------------------------------*/
 #include "list_iterator.hpp"
+
+/*------------------------------------------*/
+#include "list_const_iterator.hpp"
+
+/*------------------------------------------*/
+#include "list_utility.hpp"
 
 #endif //_LIST_HPP_
