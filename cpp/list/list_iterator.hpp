@@ -20,6 +20,13 @@ typename List<T>::Iterator& List<T>::Iterator::operator++()
 }
 
 template <typename T>
+typename List<T>::Iterator& List<T>::Iterator::operator--()
+{
+    ptr_ = ptr_->prev;
+    return *this;
+}
+
+template <typename T>
 T& List<T>::Iterator::operator*()
 {
     return ptr_->data;

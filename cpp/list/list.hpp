@@ -11,6 +11,7 @@ class List
 {
 public:
     List();
+    List(const List<T>& other);
     ~List();
 
     bool Empty() const;
@@ -24,6 +25,7 @@ public:
     public:
         bool operator!=(const Iterator& it);
 	Iterator& operator++();
+	Iterator& operator--();
 	T& operator*();
     private:
 	Iterator(typename List::ListNode_ *ptr);
@@ -31,6 +33,21 @@ public:
     };
     Iterator Begin();
     Iterator End();
+
+    class ReverseIterator
+    {
+        friend List;
+    public:
+        bool operator!=(const ReverseIterator& it);
+	ReverseIterator& operator++();
+	ReverseIterator& operator--();
+	T& operator*();
+    private:
+	ReverseIterator(typename List::ListNode_ *ptr);
+        typename List::ListNode_ *ptr_;
+    };
+    ReverseIterator RBegin();
+    ReverseIterator REnd();
 
     class ConstIterator
     {
@@ -67,6 +84,22 @@ private:
 template <typename T>
 List<T>::List() : head_(nullptr), tail_(nullptr)
 {
+}
+
+template <typename T>
+List<T>::List(const List<T>& other)
+{
+    ListNode_ tmp(T{});
+    ListNode_ *insertAt = &tmp;
+    for (ListNode_ *copyFrom = other.head_; copyFrom != nullptr; copyFrom = copyFrom->next) {
+        ListNode_ *newListNode = new ListNode_(copyFrom->data);
+        insertAt->next = newListNode;
+	newListNode->prev = insertAt;
+	insertAt = insertAt->next;
+    }
+    head_ = tmp.next;
+    head_->prev = nullptr;
+    tail_ = insertAt;
 }
 
 template <typename T>
@@ -130,6 +163,9 @@ void List<T>::PopFront()
 
 /*------------------------------------------*/
 #include "list_iterator.hpp"
+
+/*------------------------------------------*/
+#include "list_reverse_iterator.hpp"
 
 /*------------------------------------------*/
 #include "list_const_iterator.hpp"
