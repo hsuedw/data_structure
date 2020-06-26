@@ -19,5 +19,21 @@ std::ostream& operator<<(std::ostream& os, List<T>& list)
     return os;
 }
 
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const List<T>& list)
+{
+    os << "<<";
+    typename List<T>::ConstIterator cit = list.CBegin();
+    while (cit != list.CEnd()) {
+        os << *cit;
+        ++cit;
+        if (cit != list.CEnd()) {
+            os << ", ";
+        }
+    }
+    os << ">>";
+    return os;
+}
+
 
 #endif // _LIST_UTILITY_HPP_ 

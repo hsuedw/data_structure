@@ -26,13 +26,13 @@ const T& List<T>::ConstIterator::operator*()
 }
 
 template <typename T>
-typename List<T>::ConstIterator List<T>::CBegin()
+typename List<T>::ConstIterator List<T>::CBegin() const
 {
     return List<T>::ConstIterator(head_);
 }
 
 template <typename T>
-typename List<T>::ConstIterator List<T>::CEnd()
+typename List<T>::ConstIterator List<T>::CEnd() const
 {
     return List<T>::ConstIterator(nullptr);
 }

@@ -60,10 +60,24 @@ public:
         ConstIterator(typename List::ListNode_ *ptr);
         const typename List::ListNode_ *ptr_;
     };
-    ConstIterator CBegin();
-    ConstIterator CEnd();
+    ConstIterator CBegin() const;
+    ConstIterator CEnd() const;
     ConstIterator Begin() const;
     ConstIterator End() const;
+
+    class ConstReverseIterator
+    {
+        friend List;
+    public:
+        bool operator!=(const ConstReverseIterator& it);
+        ConstReverseIterator& operator++();
+        const T& operator*();
+    private:
+        ConstReverseIterator(typename List::ListNode_ *ptr);
+        const typename List::ListNode_ *ptr_;
+    };
+    ConstReverseIterator CRBegin() const;
+    ConstReverseIterator CREnd() const;
 
 private:
     struct ListNode_
@@ -169,6 +183,9 @@ void List<T>::PopFront()
 
 /*------------------------------------------*/
 #include "list_const_iterator.hpp"
+
+/*------------------------------------------*/
+#include "list_const_reverse_iterator.hpp"
 
 /*------------------------------------------*/
 #include "list_utility.hpp"
