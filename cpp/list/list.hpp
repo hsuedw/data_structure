@@ -13,6 +13,7 @@ public:
     List();
     List(const List<T>& other);
     ~List();
+    List<T>& operator=(const List<T>& other);
 
     bool Empty() const;
     void PushFront(const T& val);
@@ -124,6 +125,18 @@ List<T>::~List()
     }
 }
 
+template <typename T>
+List<T>& List<T>::operator=(const List<T>& other)
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    List<T> tmpList = other;
+    std::swap(head_, tmpList.head_);
+    std::swap(tail_, tmpList.tail_);
+    return *this;
+}
 
 template <typename T>
 bool List<T>::Empty() const
