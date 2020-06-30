@@ -12,6 +12,7 @@ class List
 public:
     List();
     List(const List<T>& other);
+    List(const std::initializer_list<T> &other);
     ~List();
     List<T>& operator=(const List<T>& other);
 
@@ -108,6 +109,22 @@ List<T>::List(const List<T>& other)
     ListNode_ *insertAt = &tmp;
     for (ListNode_ *copyFrom = other.head_; copyFrom != nullptr; copyFrom = copyFrom->next) {
         ListNode_ *newListNode = new ListNode_(copyFrom->data);
+        insertAt->next = newListNode;
+	newListNode->prev = insertAt;
+	insertAt = insertAt->next;
+    }
+    head_ = tmp.next;
+    head_->prev = nullptr;
+    tail_ = insertAt;
+}
+
+template <typename T>
+List<T>::List(const std::initializer_list<T> &other)
+{
+    ListNode_ tmp(T{});
+    ListNode_ *insertAt = &tmp;
+    for (const T& v: other) {
+        ListNode_ *newListNode = new ListNode_(v);
         insertAt->next = newListNode;
 	newListNode->prev = insertAt;
 	insertAt = insertAt->next;
