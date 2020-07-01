@@ -17,9 +17,14 @@ public:
     List<T>& operator=(const List<T>& other);
 
     bool Empty() const;
+    size_t Size() const;
+
     void PushFront(const T& val);
     void PushFront(T&& val);
     void PopFront();
+    void PushBack(const T& val);
+    void PushBack(T&& val);
+    void PopBack();
 
     class Iterator
     {
@@ -162,6 +167,16 @@ bool List<T>::Empty() const
 }
 
 template <typename T>
+size_t List<T>::Size() const
+{
+    size_t cnt = 0;
+    for (ListNode_ *node = head_; node != nullptr; node = node->next) {
+        ++cnt;
+    }
+    return cnt;
+}
+
+template <typename T>
 void List<T>::PushFront(const T& val)
 {
     ListNode_ *tmp = head_;
@@ -204,6 +219,51 @@ void List<T>::PopFront()
     }
     delete tmp;
 }
+
+template <typename T>
+void List<T>::PushBack(const T& val)
+{
+    ListNode_ *tmp = tail_;
+    tail_ = new ListNode_(val);
+    tail_->prev = tmp;
+    if (nullptr != tmp) {
+        tmp->next = tail_;
+    }
+    if (nullptr == head_) {
+        head_ = tail_;
+    }
+}
+
+template <typename T>
+void List<T>::PushBack(T&& val)
+{
+    ListNode_ *tmp = tail_;
+    tail_ = new ListNode_(std::move(val));
+    tail_->prev = tmp;
+    if (nullptr != tmp) {
+        tmp->next = tail_;
+    }
+    if (nullptr == head_) {
+        head_ = tail_;
+    }
+}
+
+template <typename T>
+void List<T>::PopBack()
+{
+    if (Empty()) {
+        return;
+    }
+    ListNode_ *tmp = tail_;
+    tail_ = tail_->prev;
+    if (nullptr != tail_) {
+        tail_->next = nullptr;
+    } else {
+        head_ = nullptr;
+    }
+    delete tmp;
+}
+
 
 /*------------------------------------------*/
 #include "list_iterator.hpp"
