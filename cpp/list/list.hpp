@@ -19,6 +19,11 @@ public:
     bool Empty() const;
     size_t Size() const;
 
+    T& Front();
+    const T& Front() const;
+    T& Back();
+    const T& Back() const;
+
     void PushFront(const T& val);
     void PushFront(T&& val);
     void PopFront();
@@ -174,6 +179,30 @@ size_t List<T>::Size() const
         ++cnt;
     }
     return cnt;
+}
+
+template <typename T>
+T& List<T>::Front()
+{
+    return head_->data;
+}
+
+template <typename T>
+const T& List<T>::Front() const
+{
+    return head_->data;
+}
+
+template <typename T>
+T& List<T>::Back()
+{
+    return tail_->data;
+}
+
+template <typename T>
+const T& List<T>::Back() const
+{
+    return tail_->data;
 }
 
 template <typename T>
